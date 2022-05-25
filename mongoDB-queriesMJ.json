@@ -1,0 +1,32 @@
+var miCursor = db.restaurants.find(); while (miCursor.hasNext()){ printjson(miCursor.next());}
+var miCursor = db.restaurants.find({},{"restaurant_id":1,"name":1,"borough":1,"cuisine":1}); while (miCursor.hasNext()){ printjson(miCursor.next());}
+var miCursor = db.restaurants.find({},{"restaurant_id":1,"name":1,"borough":1,"cuisine":1,"_id":0}); while (miCursor.hasNext()){ printjson(miCursor.next());}
+var miCursor = db.restaurants.find({},{"restaurant_id":1,"name":1,"borough":1,"cuisine":1, "zip code":1, "_id":0}); while (miCursor.hasNext()){ printjson(miCursor.next());}
+var miCursor = db.restaurants.find({"borough":"Bronx"}); while (miCursor.hasNext()){ printjson(miCursor.next());}
+db.restaurants.find({"borough":"Bronx"}).limit(5).pretty()
+db.restaurants.find({"borough":"Bronx"}).skip(5).limit(5).pretty()
+db.restaurants.find({"grades.score":{$gt:90}}).pretty()
+db.restaurants.find({$and:[{"grades.score":{$gt:80}},{"grades.score":{$lt:100}}]}).pretty()
+db.restaurants.find({"address.coord":{$lt:-95.754168}}).pretty()
+db.restaurants.find({$and:[{"grades.score":{$gt:70}},{"cuisine":{$ne:"American "}},{"address.coord":{$lt:-65.754168}}]}).pretty()
+db.restaurants.find({"grades.score":{$gt:70},"cuisine":{$ne:"American "},"address.coord":{$lt:-65.754168}}).pretty()
+db.restaurants.find({"cuisine":{$ne:"American "},"grades.grade":"A","borough":{$ne:"Brooklyn"}}).sort({cuisine:-1}).pretty()
+db.restaurants.find({"name": /^Wil/},{"restaurant_id":1,"name":1,"borough":1,"cuisine":1}).pretty()
+db.restaurants.find({"name": /ces$/},{"restaurant_id":1,"name":1,"borough":1,"cuisine":1}).pretty()
+db.restaurants.find({"name": /Reg/i},{"restaurant_id":1,"name":1,"borough":1,"cuisine":1}).pretty()
+db.restaurants.find({"borough":"Bronx", $or:[{"cuisine":{$in:["American ", "Chinese"]}}]}).pretty()
+var miCursor = db.restaurants.find({$or:[{"borough":{$in:["Staten Island", "Queens", "Bronx", "Brooklyn"]}}]},{"restaurant_id":1,"name":1,"borough":1,"cuisine":1}); while (miCursor.hasNext()){ printjson(miCursor.next());}
+var miCursor = db.restaurants.find({$or:[{"borough":{$not:{$in:["Staten Island", "Queens", "Bronx", "Brooklyn"]}}}]},{"restaurant_id":1,"name":1,"borough":1,"cuisine":1}); while (miCursor.hasNext()){ printjson(miCursor.next());}
+var miCursor = db.restaurants.find({"grades.score":{$lt:10}},{"restaurant_id":1,"name":1,"borough":1,"cuisine":1}); while (miCursor.hasNext()){ printjson(miCursor.next());}
+var miCursor = db.restaurants.find({$and:[{"name": {$nin: [/^Wil/]}}, {"cuisine":"Seafood"}, {"cusine": {$nin:["American ", "Chinese"]}}]},{"restaurant_id":1,"name":1,"borough":1,"cuisine":1}); while (miCursor.hasNext()){ printjson(miCursor.next());}
+db.restaurants.find({$and:[{"grades.grade":"A"},{"grades.score":11}, {"grades.date" : ISODate("2014-08-11T00:00:00Z")}]},{"restaurant_id":1,"name":1,"grades":1}).pretty()
+db.restaurants.find({$and:[{"grades.2.grade":"A"},{"grades.2.score":9}, {"grades.date" : ISODate("2014-08-11T00:00:00Z")}]},{"restaurant_id":1,"name":1, "address":1, "address.coord":1}).pretty()
+db.people.find({$and:[{"address.coord.2":{$gt:42}},{"address.coord.2":{$lt:52}}]}, {"restaurant_id":1,"name":1, "address.coord":1}).pretty()
+
+
+
+
+
+    
+db.restaurants.find({"name": /mon/},{"name":1,"borough":1, "address.coord":1, "cuisine":1, "_id":0}).pretty()
+db.restaurants.find({"name": /^Mad/},{"name":1,"borough":1, "address.coord":1, "cuisine":1, "_id":0}).pretty()
